@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Main Project</title>
+    <link rel="stylesheet" href="reset.css" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="main.js" defer></script>
+    <script src="https://unpkg.com/konva@10/konva.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"></script>
+  </head>
+  <body>
+    <div>
+      <h1>Crop-llage</h1>
+      <input type="file" id="inputImage" accept="image/*" />
+      <div>
+        <img src="" id="croppedImage" alt="" />
+      </div>
+      <div id="cropButton"><button>Crop Image</button></div>
+      <div id="downloadButton"><button>Download Cropped Image</button></div>
+    </div>
+
+    <main>
+      <style>
+        body,
+        html {
+          margin: 0;
+          padding: 0;
+        }
+      </style>
+      <!-- <div id="container">
+        <img id="image" src="https://static.wikia.nocookie.net/disneythehunchbackofnotredame/images/6/68/Hollow_Ichigo.jpg/revision/latest?cb=20140312233035" alt="Hollow Ichigo"/>
+      </div> -->
+    </main>
+  </body>
+</html>
