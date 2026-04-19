@@ -15,6 +15,12 @@ body {
 
 h1 {
   text-align: center;
+  font-family: cursive;
+  font-weight: bolder;
+  font-style: italic;
+  font-size: 50px;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 #cropped-image {
@@ -25,18 +31,25 @@ h1 {
 #workspace {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  gap: 150px;
+  align-items: center;
+  gap: 45px;
   margin: 40px;
 }
 
 #inputImage {
-  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.btn {
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
 }
 
 #cropButton,
 #downloadButton {
-  display: inline-block;
+  display: none;
   padding-top: 10px;
 }
 
@@ -46,6 +59,49 @@ h1 {
 
 #downloadButton {
   padding-left: 2.5px;
+}
+
+#shapeToggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 50px;
+}
+
+.toggleBtn {
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  border: 1.5px solid rgba(83, 83, 83, 0.363);
+  /* border: 1.5px solid rgb(110, 233, 255); */
+  background: rgba(78, 78, 78, 0.055);
+  color: rgba(0, 0, 0, 0.26);
+  border-radius: 12px;
+  font-size: 40px;
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+  overflow: hidden;
+}
+
+#squareToggle {
+  padding-bottom: 8px;
+}
+
+#circleToggle {
+  padding-bottom: 5px;
+}
+
+.toggleBtn.active {
+  background: rgb(59, 70, 73);
+  color: rgb(110, 233, 255);
+}
+
+body.circle-mode .cropper-view-box,
+body.circle-mode .cropper-face {
+  border-radius: 50%;
 }
 
 #cropperContainer {

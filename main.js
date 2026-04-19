@@ -251,6 +251,51 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // ------------------------------------------------------------------------------------------------
+  let cropAsCircle = false;
+  // ------------------------------------------------------------------------------------------------
+  // TOGGLE SHAPE ICON
+  // Square Toggle
+  document.getElementById("squareToggle").addEventListener("click", () => {
+    cropAsCircle = false;
+    document.getElementById("squareToggle").classList.add("active");
+    document.getElementById("circleToggle").classList.remove("active");
+    document.body.classList.remove("circle-mode");
+  });
+  // Circle Toggle
+  document.getElementById("circleToggle").addEventListener("click", () => {
+    cropAsCircle = true;
+    document.getElementById("circleToggle").classList.add("active");
+    document.getElementById("squareToggle").classList.remove("active");
+    document.body.classList.add("circle-mode");
+  });
+
+  // ------------------------------------------------------------------------------------------------
+  // CIRCLE CROP
+  function getRoundedCanvas(sourceCanvas) {
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+    const width = sourceCanvas.width;
+    const height = sourceCanvas.height;
+    canvas.width = width;
+    canvas.height = height;
+    context.imageSmoothingEnabled = true;
+    context.drawImage(sourceCanvas, 0, 0, width, height);
+    context.globalCompositeOperation = "destination-in";
+    context.beginPath();
+    context.ellipse(
+      width / 2,
+      height / 2,
+      width / 2,
+      height / 2,
+      0,
+      0,
+      2 * Math.PI,
+    );
+    context.fill();
+    return canvas;
+  }
+
+  // ------------------------------------------------------------------------------------------------
   // IMAGE INPUT FUNCTION
   imageInput.addEventListener("change", (e) => {
     const file = e.target.files[0];
@@ -268,7 +313,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // CROPPER.JS OPTIONS
         // Put "aspectRatio: 1" in the {} before viewmode to crop in SQUARE
-        cropper = new Cropper(croppedImage, { viewMode: 1 });
+        cropper = new Cropper(croppedImage, {
+          viewMode: 1,
+          wheelZoomRatio: 0.35, // Adjust zoom sensitivity
+        });
         cropButton.style.display = "inline-block";
       };
       reader.readAsDataURL(file);
@@ -278,7 +326,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // ------------------------------------------------------------------------------------------------
   // CROP BUTTON+IMAGE FUNCTION
   cropButton.addEventListener("click", () => {
-    const croppedDataURL = cropper.getCroppedCanvas().toDataURL();
+    let croppedCanvas = cropper.getCroppedCanvas();
+    if (cropAsCircle) {
+      croppedCanvas = getRoundedCanvas(croppedCanvas);
+    }
+    const croppedDataURL = croppedCanvas.toDataURL();
     croppedImage.src = croppedDataURL;
     downloadButton.style.display = "inline-block";
 
@@ -286,16 +338,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const imageObj = new Image();
     imageObj.onload = function () {
       // Scale cropped image to fit within Canvas while maintaining aspect ratio of the Crop
-      const canvas = cropper.getCroppedCanvas();
       const maxSize = 200;
       const scale = Math.min(
         // 1, to prevent upscaling of small crops and only allows downscaling of large crops
         1,
-        maxSize / canvas.width,
-        maxSize / canvas.height,
+        maxSize / croppedCanvas.width,
+        maxSize / croppedCanvas.height,
       );
-      const imgWidth = canvas.width * scale;
-      const imgHeight = canvas.height * scale;
+      const imgWidth = croppedCanvas.width * scale;
+      const imgHeight = croppedCanvas.height * scale;
 
       // Random positions of cropped image on the canvas
       // "500" and "500" are the dimensions of the canvas

@@ -19,18 +19,29 @@
 
     <div id="workspace">
       <div id="cropperSection">
-        <input type="file" id="inputImage" accept="image/*" />
-
         <div id="cropperContainer">
           <img src="" id="croppedImage" alt="" />
         </div>
+
+        <input type="file" id="inputImage" accept="image/*" />
+      </div>
+
+      <div id="shapeToggle">
+        <button id="squareToggle" class="toggleBtn active" title="Square crop">
+          ■
+        </button>
+        <button id="circleToggle" class="toggleBtn" title="Circle crop">
+          ●
+        </button>
       </div>
 
       <div id="croppedSection">
         <div id="container"></div>
 
-        <div id="cropButton"><button>Crop Image</button></div>
-        <div id="downloadButton"><button>Download Cropped Image</button></div>
+        <div id="cropButton"><button class="btn">Crop Image</button></div>
+        <div id="downloadButton">
+          <button class="btn">Download Cropped Image</button>
+        </div>
       </div>
     </div>
 
