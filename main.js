@@ -19,7 +19,8 @@ layer.clip({
   height: 500,
 });
 
-// KONVA ANCHORS
+// ------------------------------------------------------------------------------------------------
+// KONVA ANCHOR-POINTS
 const transformer = new Konva.Transformer({
   rotateEnabled: true,
   borderStroke: "#000000",
@@ -78,7 +79,8 @@ function update(activeAnchor) {
   }
 }
 
-// CROPPER JS: Function to add resize anchors to a group
+// ------------------------------------------------------------------------------------------------
+// CROPPER JS ANCHOR-POINTS
 function addAnchor(group, x, y, name) {
   const anchor = new Konva.Circle({
     x: x,
@@ -192,6 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // ------------------------------------------------------------------------------------------------
   // KEYBINDS
   // "Delete" - Deleted selected cropped image
   document.addEventListener("keydown", (e) => {
@@ -202,11 +205,13 @@ document.addEventListener("DOMContentLoaded", () => {
         layer.draw();
       }
     }
+
     // "Enter" - Crop Image
     if (e.key === " " || e.key === "Enter") {
       e.preventDefault(); // Prevents default spacebar import image action
       cropButton.querySelector("button").click();
     }
+
     // Copy and Paste for Cropped Images
     if (e.ctrlKey && e.key === "c") {
       const selected = layer.findOne(".selected");
@@ -245,6 +250,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // ------------------------------------------------------------------------------------------------
+  // IMAGE INPUT FUNCTION
   imageInput.addEventListener("change", (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -259,7 +266,7 @@ document.addEventListener("DOMContentLoaded", () => {
           cropper.destroy();
         }
 
-        // Loading Cropper Functions
+        // CROPPER.JS OPTIONS
         // Put "aspectRatio: 1" in the {} before viewmode to crop in SQUARE
         cropper = new Cropper(croppedImage, { viewMode: 1 });
         cropButton.style.display = "inline-block";
@@ -268,6 +275,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // ------------------------------------------------------------------------------------------------
+  // CROP BUTTON+IMAGE FUNCTION
   cropButton.addEventListener("click", () => {
     const croppedDataURL = cropper.getCroppedCanvas().toDataURL();
     croppedImage.src = croppedDataURL;
@@ -289,7 +298,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const imgHeight = canvas.height * scale;
 
       // Random positions of cropped image on the canvas
-      // "800" and "600" are the dimensions of the canvas
+      // "500" and "500" are the dimensions of the canvas
       // Minus image dimensions to prevent it from being placed outside the canvas
       const group = new Konva.Group({
         x: Math.random() * (500 - imgWidth),
@@ -328,6 +337,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+// ------------------------------------------------------------------------------------------------
+// DOWNLOAD BUTTON FUNCTION
 downloadButton.addEventListener("click", () => {
   // Hide anchor points when exporting
   // layer.find("Circle").forEach((anchor) => anchor.hide());
@@ -338,9 +349,11 @@ downloadButton.addEventListener("click", () => {
   const link = document.createElement("a");
   link.href = dataURL;
   link.download = "collage.png";
-  // [ Link "download" button to Cropped Image ]
+
+  // [ Link "download" button to the single, most recent Cropped Image ]
   // link.href = croppedImage.src;
   // link.download = "cropped_image.png";
+
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);

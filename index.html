@@ -15,16 +15,30 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"></script>
   </head>
   <body>
+    <h1>Crop-llage</h1>
+
+    <div id="workspace">
+      <div id="cropperSection">
+        <input type="file" id="inputImage" accept="image/*" />
+
+        <div id="cropperContainer">
+          <img src="" id="croppedImage" alt="" />
+        </div>
+      </div>
+
+      <div id="croppedSection">
+        <div id="container"></div>
+
+        <div id="cropButton"><button>Crop Image</button></div>
+        <div id="downloadButton"><button>Download Cropped Image</button></div>
+      </div>
+    </div>
+
+    <!-- 
     <div>
-      <h1>Crop-llage</h1>
-      <input type="file" id="inputImage" accept="image/*" />
       <div>
         <img src="" id="croppedImage" alt="" />
       </div>
-      <div id="cropButton"><button>Crop Image</button></div>
-      <div id="downloadButton"><button>Download Cropped Image</button></div>
-    </div>
-
-    <div id="container"></div>
+    </div> -->
   </body>
 </html>

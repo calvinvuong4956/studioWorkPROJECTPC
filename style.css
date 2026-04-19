@@ -9,6 +9,7 @@
 body {
   background-color: var(--colour02);
   color: var(--colour01);
+  margin: 30px;
   /* border: var(--border); */
 }
 
@@ -19,6 +20,47 @@ h1 {
 #cropped-image {
   display: block;
   max-width: 50%;
+}
+
+#workspace {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 150px;
+  margin: 40px;
+}
+
+#inputImage {
+  padding-bottom: 10px;
+}
+
+#cropButton,
+#downloadButton {
+  display: inline-block;
+  padding-top: 10px;
+}
+
+#cropButton {
+  padding-right: 2.5px;
+}
+
+#downloadButton {
+  padding-left: 2.5px;
+}
+
+#cropperContainer {
+  background-color: rgb(233, 233, 233);
+  box-shadow: 0px 0px 0px 1.5px rgb(0, 0, 0);
+  border-radius: 5px;
+  width: 500px;
+  height: 500px;
+  overflow: hidden;
+  position: relative;
+}
+
+#croppedImage {
+  max-width: 100%;
+  display: block;
 }
 
 #container {
